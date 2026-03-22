@@ -147,6 +147,16 @@ src/
 
 **Adding a new telephony provider:** Implement the `TelephonyBridge` interface in `src/bridges/`.
 
+### Planned Providers
+
+Voice providers on the roadmap:
+- **ElevenLabs** — high-quality TTS with 80+ voices (using OpenClaw's built-in STT for the inbound side)
+- **OpenAI Realtime** — GPT-4o native voice
+- **Google Cloud Speech** — STT + TTS
+
+Telephony:
+- **Telnyx** — already scaffolded, lower cost alternative to Twilio
+
 ## Plugin Surfaces
 
 When loaded as an OpenClaw plugin, ClawVoice registers:
