@@ -4,7 +4,7 @@ import { WebSocketServer, type WebSocket } from "ws";
 import { deepgramProvider } from "./providers/deepgram.js";
 import { twilioBridge } from "./bridges/twilio.js";
 import { telnyxBridge } from "./bridges/telnyx.js";
-import { stripMarkdown, randomSecret, createLogger } from "./utils.js";
+import { stripMarkdown, randomSecret, createLogger, validateTwilioSignature } from "./utils.js";
 import type { VoiceProviderSession } from "./providers/types.js";
 import type { TelephonySession } from "./bridges/types.js";
 
@@ -172,6 +172,20 @@ export class ClawVoiceServer {
     req.on("end", () => {
       const params = Object.fromEntries(new URLSearchParams(body));
       const baseUrl = this.publicUrl || `http://${req.headers.host}`;
+
+      // Validate Twilio signature if auth token is configured
+      const twilioAuthToken = this.config.twilio?.authToken;
+      if (twilioAuthToken) {
+        const signature = req.headers["x-twilio-signature"] as string || "";
+        const webhookUrl = `${baseUrl}/voice/twilio/incoming`;
+
+        if (!validateTwilioSignature(twilioAuthToken, signature, webhookUrl, params)) {
+          log.warn("Rejected request with invalid Twilio signature");
+          res.writeHead(403, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Invalid signature" }));
+          return;
+        }
+      }
 
       const result = twilioBridge.handleIncomingCall({
         body: params,

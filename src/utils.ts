@@ -41,6 +41,39 @@ export function stripMarkdown(text: string): string {
   );
 }
 
+/**
+ * Validate Twilio webhook signature.
+ * See: https://www.twilio.com/docs/usage/security#validating-requests
+ */
+export function validateTwilioSignature(
+  authToken: string,
+  signature: string,
+  url: string,
+  params: Record<string, string>,
+): boolean {
+  // Build the data string: URL + sorted params concatenated as key+value
+  const keys = Object.keys(params).sort();
+  let data = url;
+  for (const key of keys) {
+    data += key + params[key];
+  }
+
+  const expected = crypto
+    .createHmac("sha1", authToken)
+    .update(data, "utf-8")
+    .digest("base64");
+
+  // Timing-safe comparison
+  try {
+    return crypto.timingSafeEqual(
+      Buffer.from(signature, "base64"),
+      Buffer.from(expected, "base64"),
+    );
+  } catch {
+    return false;
+  }
+}
+
 /** Generate a random hex secret */
 export function randomSecret(bytes = 32): string {
   return crypto.randomBytes(bytes).toString("hex");
