@@ -1,8 +1,14 @@
-# ClawVoice
+<p align="center">
+  <a href="https://www.clawnify.com"><img src="https://github.com/user-attachments/assets/5d0c085d-bbf3-4571-8ec0-ed3b5e51a4db" alt="ClawVoice" width="600" style="max-width: 100%;"></a>
+</p>
+<h1 align="center">ClawVoice</h1>
 
-Voice agent plugin for [OpenClaw](https://github.com/openclaw/openclaw) — give your agent a phone number.
+> Give your OpenClaw agent a phone number. Real-time voice conversations
+> over a regular phone line — powered by Deepgram, Twilio, and your LLM.
 
-ClawVoice bridges phone calls (via Twilio or Telnyx) with [Deepgram's Voice Agent API](https://developers.deepgram.com/docs/voice-agent), allowing real-time spoken conversations with your OpenClaw agent over a regular phone line.
+---
+
+ClawVoice bridges phone calls (via Twilio or Telnyx) with [Deepgram's Voice Agent API](https://developers.deepgram.com/docs/voice-agent), allowing real-time spoken conversations with your [OpenClaw](https://github.com/openclaw/openclaw) agent.
 
 ## How It Works
 
