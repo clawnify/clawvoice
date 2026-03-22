@@ -1,0 +1,51 @@
+{
+  "name": "@clawnify/clawvoice",
+  "version": "0.1.0",
+  "description": "Voice agent plugin for OpenClaw — give your agent a phone number",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "node --test --loader tsx tests/*.test.ts"
+  },
+  "openclaw": {
+    "extensions": ["./dist/plugin/index.js"]
+  },
+  "peerDependencies": {
+    "openclaw": "*"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.5.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.0"
+  },
+  "files": [
+    "dist/",
+    "openclaw.plugin.json",
+    "skills/",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawnify/clawvoice.git"
+  },
+  "keywords": [
+    "openclaw",
+    "voice",
+    "agent",
+    "deepgram",
+    "twilio",
+    "telnyx",
+    "phone"
+  ]
+}

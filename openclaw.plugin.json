@@ -1,0 +1,74 @@
+{
+  "id": "clawvoice",
+  "name": "ClawVoice",
+  "version": "0.1.0",
+  "description": "Voice agent plugin — give your OpenClaw agent a phone number",
+  "skills": ["./skills/voice"],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "voiceProvider": {
+        "type": "string",
+        "enum": ["deepgram"],
+        "default": "deepgram"
+      },
+      "telephonyProvider": {
+        "type": "string",
+        "enum": ["twilio", "telnyx"],
+        "default": "twilio"
+      },
+      "deepgram": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "apiKey": { "type": "string" },
+          "model": { "type": "string", "default": "aura-2" },
+          "voice": { "type": "string", "default": "asteria" },
+          "language": { "type": "string", "default": "en" }
+        }
+      },
+      "twilio": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "accountSid": { "type": "string" },
+          "authToken": { "type": "string" }
+        }
+      },
+      "telnyx": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "apiKey": { "type": "string" },
+          "publicKey": { "type": "string" }
+        }
+      },
+      "serve": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "port": { "type": "number", "default": 8000 },
+          "host": { "type": "string", "default": "127.0.0.1" }
+        }
+      },
+      "voiceModel": {
+        "type": "string",
+        "default": "anthropic/claude-haiku-4-5-20251001"
+      },
+      "greeting": {
+        "type": "string",
+        "default": "Hello! How can I help you today?"
+      }
+    }
+  },
+  "uiHints": {
+    "deepgram.apiKey": { "label": "Deepgram API Key", "sensitive": true },
+    "twilio.accountSid": { "label": "Twilio Account SID" },
+    "twilio.authToken": { "label": "Twilio Auth Token", "sensitive": true },
+    "telnyx.apiKey": { "label": "Telnyx API Key", "sensitive": true },
+    "telnyx.publicKey": { "label": "Telnyx Public Key" },
+    "voiceModel": { "label": "Voice Agent Model", "placeholder": "anthropic/claude-haiku-4-5-20251001" },
+    "greeting": { "label": "Call Greeting", "placeholder": "Hello! How can I help you today?" }
+  }
+}
