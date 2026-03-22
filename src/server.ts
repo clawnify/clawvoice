@@ -19,6 +19,8 @@ export interface ClawVoiceConfig {
   serve?: { port?: number; host?: string };
   voiceModel?: string;
   greeting?: string;
+  /** Public URL for telephony webhooks (Cloudflare Tunnel, ngrok) */
+  publicUrl?: string;
   /** OpenClaw gateway URL (auto-detected or configured) */
   gatewayUrl?: string;
   /** OpenClaw gateway token */

@@ -57,6 +57,7 @@ export function register(api: any) {
       pluginConfig.voiceModel || "anthropic/claude-haiku-4-5-20251001",
     greeting:
       pluginConfig.greeting || "Hello! How can I help you today?",
+    publicUrl: pluginConfig.publicUrl || process.env.CLAWVOICE_PUBLIC_URL || "",
     gatewayUrl:
       pluginConfig.gatewayUrl ||
       process.env.OPENCLAW_GATEWAY_URL ||
@@ -169,6 +170,12 @@ export function register(api: any) {
 
       server = new ClawVoiceServer(config);
       const { port, host } = await server.start();
+
+      // Set public URL for telephony webhooks (Cloudflare Tunnel, ngrok, etc.)
+      if (config.publicUrl) {
+        server.setPublicUrl(config.publicUrl);
+      }
+
       log.info(`Voice server started on ${host}:${port}`);
     },
 
